@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">All Assessments</h1>
+
+    <!-- Check for flashed alerts -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- In-Progress Assessments Section -->
+    <div class="col-md-12">
+        <h2>In-Progress</h2>
+        <div class="row">
+            <!-- Display if any, the assessments that are not complete-->
+            {% for assessment in assessments if not assessment.is_completed %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title"><b>{{ assessment.module_code }}</b></h3>
+                        <h4 class="card-subtitle mb-2">{{ assessment.title }}</h4>
+                        <p class="card-text">{{ assessment.description }}</p>
+                        <p><b>Deadline:</b> {{ assessment.deadline }}</p>
+                        <div class="d-flex">
+                            <!-- Buttons for marking as complete and to delete -->
+                            <form action="{{ url_for('CompleteAssessment', assessment_id=assessment.id) }}"
+                                method="POST" style="flex-grow: 1;">
+                                <button type="submit" class="btn complete-btn btn-block mr-2">Complete</button>
+                            </form>
+
+                            <form action="{{ url_for('DeleteAssessment', assessment_id=assessment.id) }}" method="POST"
+                                style="flex-grow: 1;">
+                                <button type="submit" class="btn delete-btn btn-block">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    No incomplete assessments.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Completed Assessments Section -->
+    <div class="col-md-12">
+        <h2>Completed</h2>
+        <div class="row">
+            <!-- Display if any, the assessments that are complete-->
+            {% for assessment in assessments if assessment.is_completed %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title"><b>{{ assessment.module_code }}</b></h3>
+                        <h4 class="card-subtitle mb-2">{{ assessment.title }}</h4>
+                        <p class="card-text">{{ assessment.description }}</p>
+                        <p><b>Deadline:</b> {{ assessment.deadline }}</p>
+                        <div class="d-flex">
+                            <!-- Buttons for marking as uncomplete and to delete -->
+                            <form action="{{ url_for('UncompleteAssessment', assessment_id=assessment.id) }}"
+                                method="POST" style="flex-grow: 1;">
+                                <button type="submit" class="btn uncomplete-btn btn-block mr-2">Uncomplete</button>
+                            </form>
+
+                            <form action="{{ url_for('DeleteAssessment', assessment_id=assessment.id) }}" method="POST"
+                                style="flex-grow: 1;">
+                                <button type="submit" class="btn delete-btn btn-block">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    No completed assessments.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

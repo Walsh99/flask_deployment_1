@@ -1,0 +1,69 @@
+p, h1, h2, h3, h4
+{
+    font-family: 'Arial', sans-serif;
+    color: #001b6b;
+    text-align: center;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #001b6b; 
+}
+
+.navbar-nav {
+    width: 75%; 
+    margin: 0 auto; 
+    justify-content: space-between;
+}
+
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #001355; 
+    text-decoration: underline;
+}
+
+.d-flex form, .d-flex a  {
+    flex: 1; 
+    margin: 1px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid transparent;
+    width: 100%; 
+
+}
+
+.delete-btn {
+    background-color: #dc3545; 
+    color: #fff;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+.complete-btn {
+    background-color: #28a745; 
+    color: #fff;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.uncomplete-btn {
+    background-color: #ffc107; 
+    color: #fff;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.complete-btn, .uncomplete-btn, .delete-btn {
+    padding: 0.4rem 0.6rem; 
+    font-size: 0.9rem;
+}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Complete Assessments</h1>
+    
+    <!-- Check for flashed alerts -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Display if any, all complete assessments -->
+    <div class="row">
+        {% if assessments %}
+        {% for assessment in assessments %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title"><b>{{ assessment.module_code }}</b></h3>
+                    <h4 class="card-subtitle mb-2 text-muted">{{ assessment.title }}</h4>
+                    <p class="card-text">{{ assessment.description }}</p>
+                    <p><b>Deadline:</b> {{ assessment.deadline }}</p>
+                    <!-- Buttons for editing assessments or deleting -->
+                    <div class="d-flex">
+                        <a href="{{ url_for('EditAssessment', assessment_id=assessment.id) }}" class="btn complete-btn mr-2 flex-grow-1">
+                            Edit
+                        </a>
+
+                        <form action="{{ url_for('DeleteAssessment', assessment_id=assessment.id) }}" method="POST" class="flex-grow-1">
+                            <button type="submit" class="btn delete-btn w-100">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                No completed assessments in the database currently.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

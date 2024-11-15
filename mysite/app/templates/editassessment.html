@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Edit Assessment</h1>
+
+    <!-- Check for flashed alerts -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Filled in form for editing/updating an assessment -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form action="" method="post" name="EditAssessmentForm">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.title.label(class_='form-label') }}
+                    {{ form.title(class_='form-control') }}
+                    {% for error in form.title.errors %}
+                    <div class="alert alert-danger mt-1">[{{ error }}]</div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.module_code.label(class_='form-label') }}
+                    {{ form.module_code(class_='form-control') }}
+                    {% for error in form.module_code.errors %}
+                    <div class="alert alert-danger mt-1">[{{ error }}]</div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.deadline.label(class_='form-label') }}
+                    {{ form.deadline(class_='form-control') }}
+                    {% for error in form.deadline.errors %}
+                    <div class="alert alert-danger mt-1">[{{ error }}]</div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.description.label(class_='form-label') }}
+                    {{ form.description(class_='form-control') }}
+                    {% for error in form.description.errors %}
+                    <div class="alert alert-danger mt-1">[{{ error }}]</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-check mb-4">
+                    {{ form.is_completed(class_='form-check-input') }}
+                    {{ form.is_completed.label(class_='form-check-label') }}
+                    {% for error in form.is_completed.errors %}
+                    <div class="alert alert-danger mt-1">[{{ error }}]</div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Update Assessment</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
